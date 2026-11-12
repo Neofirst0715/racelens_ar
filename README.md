@@ -8,7 +8,7 @@
 ![SailGP](https://img.shields.io/badge/SailGP-Halifax%202024-555?labelColor=555&color=d6301b)
 
 <p align="center">
-  <img src="docs/images/splash.png" alt="RaceLens AR splash screen" width="420">
+  <img src="design/prototypes/2.png" alt="RaceLens AR splash screen" width="420">
 </p>
 
 An AR spectator companion for SailGP, built for the **Ocean of Data Challenge: Foil Forward** (DeepSense × SailGP, June 2026).
