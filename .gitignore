@@ -1,0 +1,27 @@
+# OS / editor
+.DS_Store
+__MACOSX/
+.idea/
+.vscode/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+dist/
+build/
+coverage/
+*.log
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Trained model (~90 MB; regenerate with ml/train_ml.py)
+ml/models/*
+!ml/models/.gitkeep
+*.pkl

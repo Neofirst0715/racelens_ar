@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-surface: #0e1417;
+  --color-surface-dim: #0e1417;
+  --color-surface-bright: #333a3d;
+  --color-surface-container-lowest: #080f12;
+  --color-surface-container-low: #161d1f;
+  --color-surface-container: #1a2123;
+  --color-surface-container-high: #242b2e;
+  --color-surface-container-highest: #2f3639;
+  
+  --color-on-surface: #dde3e7;
+  --color-on-surface-variant: #bbc9cf;
+  
+  --color-primary: #a8e8ff;
+  --color-primary-container: #00d4ff;
+  --color-on-primary-container: #00586b;
+  
+  --color-secondary: #ffb3b0;
+  --color-secondary-container: #901822;
+  --color-on-secondary-container: #ff9e9b;
+  
+  --color-tertiary: #ffd9a1;
+  --color-tertiary-container: #feb528;
+  --color-on-tertiary-container: #6c4900;
+  
+  --color-background-custom: #0e1417;
+  
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist", monospace;
+  
+  --animate-spin-slow: spin 10s linear infinite;
+  --animate-fade-in: fadeIn 0.4s ease-out forwards;
+  --animate-slide-up: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-fade-out: fadeOut 0.2s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Custom overlay shadows and glows */
+.text-shadow {
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}

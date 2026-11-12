@@ -1,0 +1,11 @@
+{
+  "name": "RaceLens AR",
+  "description": "See the Race. Feel the Speed. Augmented Reality Yacht Racing HUD with real-time boat telemetry, animated tactical replay tracks, custom mock capture system, and dynamic Gemini AI commentaries.",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

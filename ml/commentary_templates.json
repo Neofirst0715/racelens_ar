@@ -1,0 +1,56 @@
+[
+  {
+    "event_type": "hard_data",
+    "severity": "normal",
+    "template": "{TEAM} 正在以 {SPEED} km/h 的速度平稳推进，当前排名第 {RANK} 位。",
+    "variables": ["TEAM", "SPEED", "RANK"]
+  },
+  {
+    "event_type": "speed_anomaly",
+    "severity": "mid",
+    "template": "⚠️ 速度异常：{TEAM} 在过去15秒内速度变化了 {DELTA}%，当前速度 {SPEED} km/h。",
+    "variables": ["TEAM", "DELTA", "SPEED"]
+  },
+  {
+    "event_type": "speed_anomaly",
+    "severity": "high",
+    "template": "🚨 急剧减速：{TEAM} 速度在15秒内骤降 {DELTA}%！从 {SPEED_PREV} 降至 {SPEED} km/h，需立即关注。",
+    "variables": ["TEAM", "DELTA", "SPEED_PREV", "SPEED"]
+  },
+  {
+    "event_type": "wind_shadow",
+    "severity": "mid",
+    "template": "📊 风影预警：{TEAM} 进入前船风影区，风速下降 {DELTA}%，速度正在受阻。",
+    "variables": ["TEAM", "DELTA"]
+  },
+  {
+    "event_type": "wind_shadow",
+    "severity": "high",
+    "template": "🌬️ 严重风影：{TEAM} 深陷风影区！风速骤降 {DELTA}%，若不立即转向将持续失速。",
+    "variables": ["TEAM", "DELTA"]
+  },
+  {
+    "event_type": "rank_change",
+    "severity": "mid",
+    "template": "🏁 排名波动：{TEAM} 与前后船距离在15秒内变化了 {DELTA} 米，赛位出现变化。",
+    "variables": ["TEAM", "DELTA"]
+  },
+  {
+    "event_type": "rank_change",
+    "severity": "high",
+    "template": "🔥 赛位剧变：{TEAM} 与领先船只的距离急剧变化 {DELTA} 米！超车或被超车即将发生。",
+    "variables": ["TEAM", "DELTA"]
+  },
+  {
+    "event_type": "ml_prediction",
+    "severity": "normal",
+    "template": "🔮 📊 预测参考：AI 模型显示 {TEAM} 当前处于【{SITUATION}】状态，建议持续关注其下一步动向。",
+    "variables": ["TEAM", "SITUATION"]
+  },
+  {
+    "event_type": "Normal sailing",
+    "severity": "normal",
+    "template": "⛵️ {TEAM} 正常航行中，速度 {SPEED} km/h，距领先船只 {DTL} 米。",
+    "variables": ["TEAM", "SPEED", "DTL"]
+  }
+]

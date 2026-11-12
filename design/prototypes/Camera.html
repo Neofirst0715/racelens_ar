@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <title>RaceLens AR - Capture Mode</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary": "#0058bc",
+                      "secondary-container": "#fe9400",
+                      "background": "#f9f9ff",
+                      "on-surface": "#001c3b",
+                      "error": "#ba1a1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "20px"
+              }
+            }
+          }
+        }
+    </script>
+    
+    <style>
+        /* 🌟 1. 终极统一：核心全屏毛玻璃卡片 */
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px) saturate(190%);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: inset 0 1px 1px rgba(255,255,255, 0.6),
+                        inset 0 -1px 2px rgba(255,255,255, 0.1),
+                        0 12px 32px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 🌟 2. 苹果文本阴影 */
+        .text-shadow-apple{
+             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 🌟 3. 次级动作按钮 */
+        .glass-button-secondary {
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }    
+        
+        /* 🌟 4. 彩色图标专用高光隔离圈 */
+        .glass-card-icon-wrap {
+            background-color: rgba(255, 255, 255, 0.4); 
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 12px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 48px;
+            width: 48px;
+            flex-shrink: 0;
+        }
+
+        /* 🌟 5. 顶部的深色物理信息玻璃屏 */
+        .glass-dark {
+            background: rgba(21, 49, 84, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* 🎚️ 6. 底部模式选择器专属轨道 */
+        .mode-slider-track {
+            background-color: rgba(0, 0, 0, 0.12);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 0.5px solid rgba(255, 255, 255, 0.15);
+            padding: 4px;
+            border-radius: 9999px;
+            display: flex;
+            position: relative;
+            align-items: center;
+            width: 180px;
+        }
+        .mode-slider-thumb {
+            position: absolute;
+            top: 4px;
+            bottom: 4px;
+            width: calc(50% - 4px);
+            background-color: #ffffff;
+            border-radius: 9999px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.1);
+            transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 0;
+        }
+        .mode-slider-btn {
+            flex: 1;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            padding: 8px 0;
+            z-index: 10;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        /* 其他基础组件样式 */
+        .ar-marker-line {
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
+        }
+        .pulse-recording {
+            animation: pulse-red 2s infinite;
+        }
+        @keyframes pulse-red {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+</head>
+<body class="bg-black text-on-surface h-screen w-screen overflow-hidden font-body-md select-none">
+
+    <div class="absolute inset-0 z-0">
+        <img alt="Live AR Camera View" class="w-full h-full object-cover" src="1.jpg"/>
+    </div>
+
+    <div class="absolute inset-0 z-10 flex flex-col justify-between pointer-events-none">
+        
+        <div class="h-8 w-full"></div>
+
+        <div class="px-margin-mobile flex justify-between items-center pointer-events-auto mt-2">
+            <button class="w-[44px] h-[44px] rounded-full glass-card flex items-center justify-center text-white active:scale-95 transition-transform shadow-lg">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'wght' 400;">close</span>
+            </button>
+
+            <div class="absolute left-1/2 -translate-x-1/2 top-4">
+                <div class="glass-dark px-4 py-1.5 rounded-full flex items-center gap-2 text-white shadow-lg">
+                    <div class="w-2.5 h-2.5 rounded-full bg-error pulse-recording"></div>
+                    <span class="font-sans font-bold text-[13px] tracking-widest">00:42</span>
+                </div>
+            </div>
+
+            <button class="w-[44px] h-[44px] rounded-full glass-card flex items-center justify-center p-1 active:scale-95 transition-transform shadow-lg">
+                <div class="w-full h-full rounded-full bg-white/20 border border-white/30 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[20px] text-white">photo_library</span>
+                </div>
+            </button>
+        </div>
+
+        <div class="flex-1 relative pointer-events-none">
+            <div class="absolute top-[45%] left-[40%] flex flex-col items-center">
+                <div class="glass-card px-4 py-2 rounded-xl flex items-center gap-2 shadow-lg mb-1 pointer-events-auto">
+                    <span class="text-[16px]">🇨🇦</span>
+                    <span class="font-sans font-extrabold text-white text-lg tracking-wide">CAN</span>
+                    <div class="w-px h-4 bg-white/30 mx-1"></div>
+                    <span class="font-sans font-extrabold text-white">46.1</span>
+                    <span class="font-sans font-semibold text-white/70 text-xs uppercase tracking-wider">km/h</span>
+                </div>
+                <div class="ar-marker-line"></div>
+                <div class="w-2 h-2 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)] mt-1"></div>
+            </div>
+        </div>
+
+        <div class="pb-safe pointer-events-auto flex flex-col items-center gap-6 mb-8 px-margin-mobile">
+            
+            <div class="glass-card p-1 rounded-full flex shadow-lg">
+                <button class="w-[40px] h-[32px] rounded-full flex items-center justify-center font-sans font-bold text-xs text-white/60 hover:text-white transition-colors">1x</button>
+                <button class="w-[40px] h-[32px] rounded-full bg-white flex items-center justify-center font-sans font-bold text-xs text-on-background shadow-sm transition-colors">2x</button>
+                <button class="w-[40px] h-[32px] rounded-full flex items-center justify-center font-sans font-bold text-xs text-white/60 hover:text-white transition-colors">3x</button>
+            </div>
+
+            <div class="w-full flex justify-between items-center px-4">
+                <button class="glass-card px-5 py-2.5 rounded-full flex items-center gap-2 text-white active:scale-95 transition-transform shadow-lg">
+                    <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">view_in_ar</span>
+                    <span class="font-sans font-bold text-sm tracking-wide">AR On</span>
+                </button>
+
+                <button class="w-[76px] h-[76px] rounded-full bg-white/40 flex items-center justify-center backdrop-blur-md border-4 border-white/60 active:scale-90 transition-transform shadow-xl">
+                    <div class="w-[60px] h-[60px] rounded-full bg-white flex items-center justify-center shadow-inner">
+                        <div class="w-[24px] h-[24px] rounded-sm bg-error"></div>
+                    </div>
+                </button>
+
+                <button class="w-[44px] h-[44px] rounded-full glass-card flex items-center justify-center text-white active:scale-95 transition-transform shadow-lg">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'wght' 400;">tune</span>
+                </button>
+            </div>
+
+            <div class="mode-slider-track mt-2 mx-auto">
+                <div class="mode-slider-thumb"></div>
+                <button class="mode-slider-btn text-on-background">
+                    PHOTO
+                </button>
+                <button class="mode-slider-btn text-white/60 hover:text-white/90">
+                    VIDEO
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

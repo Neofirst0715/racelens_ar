@@ -1,0 +1,11 @@
+[project]
+name = "racelens-ml"
+version = "0.1.0"
+description = "Event detection, situation classifier and commentary generation for RaceLens AR"
+requires-python = ">=3.14"
+dependencies = [
+    "cite>=0.7.2",
+    "pandas>=3.0.3",
+    "pandas-stubs~=3.0.3",
+    "scikit-learn>=1.9.0",
+]
